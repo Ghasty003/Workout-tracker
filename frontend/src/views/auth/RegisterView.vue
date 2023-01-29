@@ -36,6 +36,7 @@ export default {
             const json = await response.json();
 
             if (response.ok) {
+                localStorage.setItem("user", JSON.stringify(json))
                 console.log(json)
             }
 
