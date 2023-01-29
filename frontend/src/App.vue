@@ -1,11 +1,20 @@
 <template>
-  <router-view />
+  <div>
+    <div v-if="user">
+      <Home />
+    </div>
+    <div v-else>
+    <Login />
+  </div>
+  </div>
 </template>
 
 <script>
+import Login from "./views/auth/LoginView.vue";
+import Home from "./views/HomeView.vue";
 export default {
   components: {
-
+    Login, Home
   },
   data() {
     return {
