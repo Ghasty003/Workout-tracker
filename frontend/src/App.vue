@@ -2,6 +2,22 @@
   <router-view />
 </template>
 
+<script>
+export default {
+  components: {
+
+  },
+  data() {
+    return {
+      user: ""
+    }
+  },
+  mounted() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+  }
+}
+</script>
+
 <style>
 * {
   margin: 0;
