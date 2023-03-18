@@ -16,33 +16,23 @@
   </form>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            email: "",
-            password: ""
-        }
-    },
-    methods: {
-        async handleSubmit() {
-            const response = await fetch("http://localhost:4000/api/users/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({email: this.email, password: this.password})
-            });
-            const json = await response.json();
+<script setup>
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
-            if (response.ok) {
-                console.log(json)
-            }
+const store = useStore();
+const router = useRouter();
 
-            if (!response.ok) {
-                console.log(json.error)
-            }
-        }
+const email = ref("");
+const password = ref("");
+
+const handleSubmit = async () => {
+    try {
+        await store.dispatch("login", { email: email.value, password: password.value});
+        router.push("/")
+    } catch (error) {
+        console.log("Error", error.message);
     }
 }
 </script>

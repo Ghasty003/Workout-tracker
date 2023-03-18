@@ -12,7 +12,7 @@ export default createStore({
   actions: {
     fetchAccessToken({ commit }) {
       const user = localStorage.getItem("user");
-      commit("setUser", user);
+      commit("setUser", JSON.parse(user));
     },
 
     async signUp(context, { email, password }) {
@@ -38,7 +38,7 @@ export default createStore({
       }
     },
 
-    async login() {
+    async login({ commit }, { email, password }) {
       const response = await fetch("http://localhost:4000/api/users/login", {
         method: "POST",
         headers: {
@@ -50,7 +50,7 @@ export default createStore({
       const json = await response.json();
 
       if (response.ok) {
-        context.commit("setUser", json);
+        commit("setUser", json);
         localStorage.setItem("user", JSON.stringify(json));
         console.log(json);
       }

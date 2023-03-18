@@ -30,6 +30,7 @@ const password = ref("");
 const handleSubmit = async () => {
     try {
         await store.dispatch("signUp", { email: email.value, password: password.value});
+        router.push("/");
     } catch (error) {
         console.log("Error", error.message);
     }
