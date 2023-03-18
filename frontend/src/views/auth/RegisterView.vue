@@ -16,34 +16,21 @@
   </form>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            email: "",
-            password: ""
-        }
-    },
-    methods: {
-        async handleSubmit() {
-            const response = await fetch("http://localhost:4000/api/users/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({email: this.email, password: this.password})
-            });
-            const json = await response.json();
+<script setup>
+import { ref } from "vue";
+import { useStore } from "vuex";
 
-            if (response.ok) {
-                localStorage.setItem("user", JSON.stringify(json))
-                console.log(json)
-            }
+const store = useStore();
 
-            if (!response.ok) {
-                console.log(json.error)
-            }
-        }
+const email = ref("");
+const password = ref("");
+
+const handleSubmit = async () => {
+    try {
+        await store.dispatch("signUp", { email: email.value, password: password.value});
+        console.log(store.state.user)
+    } catch (error) {
+        console.log("Error", error.message);
     }
 }
 </script>

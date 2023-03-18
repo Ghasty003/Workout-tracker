@@ -1,29 +1,12 @@
 <template>
   <div>
-    <div v-if="user">
-      <Home />
-    </div>
-    <div v-else>
-    <Login />
-  </div>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Login from "./views/auth/LoginView.vue";
-import Home from "./views/HomeView.vue";
 export default {
-  components: {
-    Login, Home
-  },
-  data() {
-    return {
-      user: ""
-    }
-  },
-  mounted() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-  }
+ 
 }
 </script>
 
