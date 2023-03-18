@@ -19,8 +19,10 @@
 <script setup>
 import { ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 const store = useStore();
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
@@ -28,7 +30,6 @@ const password = ref("");
 const handleSubmit = async () => {
     try {
         await store.dispatch("signUp", { email: email.value, password: password.value});
-        console.log(store.state.user)
     } catch (error) {
         console.log("Error", error.message);
     }
